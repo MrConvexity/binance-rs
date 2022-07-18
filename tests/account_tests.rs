@@ -2,6 +2,7 @@ use binance::api::*;
 use binance::config::*;
 use binance::account::*;
 use binance::model::*;
+use rust_decimal_macros::dec;
 
 #[cfg(test)]
 mod tests {
@@ -273,7 +274,7 @@ mod tests {
             .set_recv_window(1234);
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
-        let transaction: Transaction = account.limit_buy("LTCBTC", 1, 0.1).unwrap();
+        let transaction: Transaction = account.limit_buy("LTCBTC", dec!(1), dec!(0.1)).unwrap();
 
         mock_limit_buy.assert();
 
@@ -310,7 +311,7 @@ mod tests {
             .set_recv_window(1234);
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
-        account.test_limit_buy("LTCBTC", 1, 0.1).unwrap();
+        account.test_limit_buy("LTCBTC", dec!(1), dec!(0.1)).unwrap();
 
         mock_test_limit_buy.assert();
     }
@@ -328,7 +329,7 @@ mod tests {
             .set_recv_window(1234);
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
-        let transaction: Transaction = account.limit_sell("LTCBTC", 1, 0.1).unwrap();
+        let transaction: Transaction = account.limit_sell("LTCBTC", dec!(1), dec!(0.1)).unwrap();
 
         mock_limit_sell.assert();
 
@@ -365,7 +366,7 @@ mod tests {
             .set_recv_window(1234);
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
-        account.test_limit_sell("LTCBTC", 1, 0.1).unwrap();
+        account.test_limit_sell("LTCBTC", dec!(1), dec!(0.1)).unwrap();
 
         mock_test_limit_sell.assert();
     }
@@ -386,7 +387,7 @@ mod tests {
             .set_recv_window(1234);
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
-        let transaction: Transaction = account.market_buy("LTCBTC", 1).unwrap();
+        let transaction: Transaction = account.market_buy("LTCBTC", dec!(1)).unwrap();
 
         mock_market_buy.assert();
 
@@ -444,7 +445,7 @@ mod tests {
             .set_recv_window(1234);
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
-        match account.market_buy_using_quote_quantity("BNBBTC", 0.002) {
+        match account.market_buy_using_quote_quantity("BNBBTC", dec!(0.002)) {
             Ok(answer) => {
                 assert!(answer.order_id == 1);
             }
@@ -468,7 +469,7 @@ mod tests {
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
         account
-            .test_market_buy_using_quote_quantity("BNBBTC", 0.002)
+            .test_market_buy_using_quote_quantity("BNBBTC", dec!(0.002))
             .unwrap();
 
         mock_test_market_buy_using_quote_quantity.assert();
@@ -548,7 +549,7 @@ mod tests {
             .set_recv_window(1234);
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
-        match account.market_sell_using_quote_quantity("BNBBTC", 0.002) {
+        match account.market_sell_using_quote_quantity("BNBBTC", dec!(0.002)) {
             Ok(answer) => {
                 assert!(answer.order_id == 1);
             }
@@ -572,7 +573,7 @@ mod tests {
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
         account
-            .test_market_sell_using_quote_quantity("BNBBTC", 0.002)
+            .test_market_sell_using_quote_quantity("BNBBTC", dec!(0.002))
             .unwrap();
 
         mock_test_market_sell_using_quote_quantity.assert();
@@ -592,7 +593,7 @@ mod tests {
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
         let transaction: Transaction = account
-            .stop_limit_buy_order("LTCBTC", 1, 0.1, 0.09, TimeInForce::GTC)
+            .stop_limit_buy_order("LTCBTC", 1, dec!(0.1), dec!(0.09), TimeInForce::GTC)
             .unwrap();
 
         mock_stop_limit_buy_order.assert();
@@ -632,7 +633,7 @@ mod tests {
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
         let _ = account
-            .test_stop_limit_buy_order("LTCBTC", 1, 0.1, 0.09, TimeInForce::GTC)
+            .test_stop_limit_buy_order("LTCBTC", 1, dec!(0.1), dec!(0.09), TimeInForce::GTC)
             .unwrap();
 
         mock_test_stop_limit_buy_order.assert();
@@ -652,7 +653,7 @@ mod tests {
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
         let transaction: Transaction = account
-            .stop_limit_sell_order("LTCBTC", 1, 0.1, 0.09, TimeInForce::GTC)
+            .stop_limit_sell_order("LTCBTC", 1, dec!(0.1), dec!(0.09), TimeInForce::GTC)
             .unwrap();
 
         mock_stop_limit_sell_order.assert();
@@ -692,7 +693,7 @@ mod tests {
         let account: Account = Binance::new_with_config(None, None, &config);
         let _ = env_logger::try_init();
         let _ = account
-            .test_stop_limit_sell_order("LTCBTC", 1, 0.1, 0.09, TimeInForce::GTC)
+            .test_stop_limit_sell_order("LTCBTC", 1, dec!(0.1), dec!(0.09), TimeInForce::GTC)
             .unwrap();
 
         mock_test_stop_limit_sell_order.assert();
@@ -715,7 +716,7 @@ mod tests {
             .custom_order(
                 "LTCBTC",
                 1,
-                0.1,
+                dec!(0.1),
                 None,
                 OrderSide::Buy,
                 OrderType::Market,
@@ -764,7 +765,7 @@ mod tests {
             .test_custom_order(
                 "LTCBTC",
                 1,
-                0.1,
+                dec!(0.1),
                 None,
                 OrderSide::Buy,
                 OrderType::Market,
