@@ -1,4 +1,4 @@
-#![deny(
+#![allow(
     unstable_features,
     unused_must_use,
     unused_mut,

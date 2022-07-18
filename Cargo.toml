@@ -1,5 +1,5 @@
 [package]
-name = "Binance"
+name = "binance_rs"
 version = "0.18.4"
 license = "MIT OR Apache-2.0"
 authors = ["Flavio Oliveira <flavio@wisespace.io>"]
@@ -16,7 +16,7 @@ readme = "README.md"
 travis-ci = { repository = "wisespace-io/binance-rs" }
 
 [lib]
-name = "Binance"
+name = "binance_rs"
 path = "src/lib.rs"
 
 [dependencies]
